@@ -56,11 +56,14 @@ void loop()
 
     }
 
-    if(i == 2 || i == 3)
+    // Inputs 2 and 3 have hard switches, this code sends a joystick button press everytime the switch state changes
+    // this saves you contantly flicking the switches twice for a single press
+    if(i == 2 || i == 3) 
     {
       // press on state change
   		if (switch_state[i] != switch_state_old[i]) 
-  		{ // debounced button has changed state
+  		{ 
+  		  // debounced button has changed state
   			// this code is executed once after change of state
   			digitalWrite(13,switch_state[i]);
         Joystick.pressButton(i);
@@ -71,7 +74,7 @@ void loop()
       else
       {
         switch_state_count[i]++;
-        if(switch_state_count[i] > 3)
+        if(switch_state_count[i] > 3) // release the button after a few cycles to give the computer time to detect the button press
         {
           Joystick.releaseButton(i);
         }
@@ -79,6 +82,7 @@ void loop()
     }
     else
     {
+      // this is normal button press state change logic
       if (switch_state[i] != switch_state_old[i]) 
       { // debounced button has changed state
         // this code is executed once after change of state
